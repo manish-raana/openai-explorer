@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Gallery from "../components/Gallery";
 
-export default function Home({ imagesList }:any) {
+export default function Home() {
   const [promptText, setPromptText] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -11,11 +11,17 @@ export default function Home({ imagesList }:any) {
   const [imageUrlList, setImageUrlList] = useState<Array<{id:number,imageUrl:string}>>([]);
 
   useEffect(() => {
-    if (imagesList.status == 200 && imagesList.data.length > 0) { 
-      const data = imagesList.data;
-      setImageUrlList(data);
-    }
+    getImagesList();
   }, []);
+
+  const getImagesList = async () => {
+    const res = await axios.get("/api/images");
+    const imagesList = res.data.data;
+    console.log(imagesList);
+    if (imagesList && imagesList.length > 0) {
+      setImageUrlList(imagesList);
+    };
+  }
 
   const storeImage = async(imageUrl:string) => {
      axios
@@ -132,18 +138,4 @@ export default function Home({ imagesList }:any) {
       </div>
     </div>
   );
-}
-// This function gets called at build time
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts
-  const res = await axios.get('http://localhost:3000/api/images')
-  const imagesList = res.data;
-
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      imagesList,
-    },
-  };
 }
