@@ -24,7 +24,7 @@ export default function Home({ imagesList }:any) {
          createdOn:Date.now()
        })
        .then(function (response) {
-         console.log(response);
+         //console.log(response);
        })
        .catch(function (error) {
          console.log(error);
@@ -43,7 +43,7 @@ export default function Home({ imagesList }:any) {
     }
     setLoading(true);
     setImageUrl(null);
-    console.log("prompt-text: ", promptText);
+    //console.log("prompt-text: ", promptText);
     axios
       .post("/api/generateImage", {
         prompt: promptText,
@@ -136,8 +136,8 @@ export default function Home({ imagesList }:any) {
 // This function gets called at build time
 export async function getStaticProps() {
   // Call an external API endpoint to get posts
-  const res = await fetch('http://localhost:3000/api/images')
-  const imagesList = await res.json()
+  const res = await axios.get('http://localhost:3000/api/images')
+  const imagesList = res.data;
 
   // By returning { props: { posts } }, the Blog component
   // will receive `posts` as a prop at build time
