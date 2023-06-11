@@ -11,7 +11,7 @@ export default function Home() {
   const [imageUrlList, setImageUrlList] = useState<Array<{id:number,imageUrl:string}>>([]);
 
   useEffect(() => {
-    getImagesList();
+    //getImagesList();
   }, []);
 
   const getImagesList = async () => {
@@ -122,7 +122,7 @@ export default function Home() {
           Generate Image
         </button>
       </div>
-      <div className="z-10 border-dotted border-2 rounded-xl mt-5 border-gray-700 w-5/6 h-[500px] flex flex-col items-center justify-center">
+      <div className="z-10 border-dotted border-2 rounded-xl mt-5 border-gray-700 w-5/6 h-[550px] flex flex-col items-center justify-center">
         {loading && <img src="loading.svg" alt="loading" />}
         {(!imageUrl && !loading) && (
           <div>
@@ -133,8 +133,8 @@ export default function Home() {
         {imageUrl && <img className="rounded-xl h-5/6" src={imageUrl} alt="loading" />}
       </div>
       <div className="mt-5 text-center">
-        <p className="font-bold text-2xl">Recently Generated Images</p>
-        <Gallery imageUrlList={imageUrlList} />
+        {/* <p className="font-bold text-2xl">Recently Generated Images</p> */}
+        {/* <Gallery imageUrlList={imageUrlList} /> */}
       </div>
     </div>
   );
